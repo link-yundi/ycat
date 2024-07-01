@@ -3,7 +3,7 @@
 
 ### 安装
 ```shell
-pip install ycat
+pip install git+https://github.com/link-yundi/ycat.git
 ```
 
 ### 使用示例
