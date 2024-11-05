@@ -11,7 +11,9 @@ import os
 from filelock import FileLock
 from joblib import dump, load
 
-default_db_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "catdb")
+# default_db_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "catdb")
+home = os.environ['HOME']
+default_db_path = os.path.join(home, 'catdb')
 
 
 # ======================== 本地数据库 catdb ========================
@@ -59,14 +61,14 @@ def put(data, tb: str):
             dump(data, f)
 
 
-def mmap(tb: str, mode='r+'):
+def mmap(tb: str,):
     """
     内存映射
     """
     tbpath = tb_path(tb)
     lockfile = f'{tbpath}.lock'
     with FileLock(lockfile):
-        return load(tbpath, mode)
+        return load(tbpath, "r+")
 
 
 def delete(tb: str):
@@ -84,3 +86,4 @@ def has(tb: str) -> bool:
     if not os.path.exists(tb_path(tb)):
         return False
     return True
+
