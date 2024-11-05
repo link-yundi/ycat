@@ -3,7 +3,7 @@
 
 ### 安装
 ```shell
-pip install git+https://github.com/link-yundi/ycat.git
+pip install -U git+https://github.com/link-yundi/ycat.git
 ```
 
 ### 使用示例
