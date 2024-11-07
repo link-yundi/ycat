@@ -118,7 +118,9 @@ def to_duckdb(df, tb, partitions: list = None, n_jobs=3):
                 to '{tbpath}' (format parquet, partition_by ({', '.join(partitions)}), overwrite_or_ignore);
                 """
             depth = len(partitions)
-    duckdb.sql(insert_sql)
+    lockfile = f'{tbpath}/data.lock'
+    with FileLock(lockfile):
+        duckdb.sql(insert_sql)
     # 记录分区深度
     put(data=depth, tb=f"{tb}/depth")
 
