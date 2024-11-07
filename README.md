@@ -11,7 +11,7 @@ pip install -U git+https://github.com/link-yundi/ycat.git
 import ycat
 
 data = [1, 2, 3]
-table_name = 'a.b.c.test'
+table_name = 'a/b/c/test'
 
 # 存储数据->catdb/a/b/c/test
 ycat.put(data, table_name)

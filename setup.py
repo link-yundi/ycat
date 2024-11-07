@@ -7,15 +7,16 @@ Created on 2024/7/1 10:20
 ---------------------------------------------
 """
 
-VERSION = '1.0.1'
+VERSION = '1.0.2'
 from setuptools import setup, find_packages
 
 setup(
     name='ycat',
     version=VERSION,
-    py_modules=['ycat'],
     install_requires=['filelock',
-                      'joblib'],
+                      'joblib',
+                      'duckdb',
+                      'sqlparse'],
 
     author='ZhangYundi',
     author_email='yundi.xxii@outlook.com',
