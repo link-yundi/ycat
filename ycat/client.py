@@ -133,8 +133,9 @@ def sql(query: str, ):
         db_path = tb_path(tb)
         format_tb = f"read_parquet('{db_path}/data.parquet')"
         depth = get(f"{tb}/depth")
-        if depth > 0:
-            format_tb = f"read_parquet('{db_path}{'/*' * depth}/*.parquet', hive_partitioning = true)"
+        if depth is not None:
+            if depth > 0:
+                format_tb = f"read_parquet('{db_path}{'/*' * depth}/*.parquet', hive_partitioning = true)"
         convertor[tb] = format_tb
     pattern = re.compile("|".join(re.escape(k) for k in convertor.keys()))
     new_query = pattern.sub(lambda m: convertor[m.group(0)], query)
