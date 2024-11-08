@@ -17,7 +17,7 @@ setup(
                       'joblib',
                       'duckdb',
                       'polars',
-                      'pyallow',
+                      'pyarrow',
                       'sqlparse'],
 
     author='ZhangYundi',
