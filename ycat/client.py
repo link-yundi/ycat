@@ -84,7 +84,7 @@ def has(tb: str) -> bool:
 
 def to_duckdb(df, tb, partitions: list = None, n_jobs=3):
     """
-    :param df: pandas.DataFrame
+    :param df: polars.DataFrame
     :param tb: 表名,支持路径写法, a/b/c
     :param partitions: 根据哪些字段进行分区，默认不分区
     :param n_jobs:
@@ -99,7 +99,6 @@ def to_duckdb(df, tb, partitions: list = None, n_jobs=3):
     if partitions is not None:
         for field in partitions:
             assert field in df.columns, f'dataframe must have Field `{field}`'
-    duckdb.sql("set global pandas_analyze_sample=100000")
     if n_jobs > 1:
         duckdb.sql(f"set threads={n_jobs};")
     insert_sql = f"""

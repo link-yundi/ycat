@@ -7,7 +7,7 @@ Created on 2024/7/1 10:20
 ---------------------------------------------
 """
 
-VERSION = '1.0.6'
+VERSION = '1.0.7'
 from setuptools import setup, find_packages
 
 setup(
@@ -16,6 +16,8 @@ setup(
     install_requires=['filelock',
                       'joblib',
                       'duckdb',
+                      'polars',
+                      'pyallow',
                       'sqlparse'],
 
     author='ZhangYundi',
