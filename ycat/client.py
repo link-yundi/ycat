@@ -99,7 +99,7 @@ def to_duckdb(df, tb, partitions: list = None, n_jobs=3):
     if partitions is not None:
         for field in partitions:
             assert field in df.columns, f'dataframe must have Field `{field}`'
-    duckdb.sql("set global pandas_analyze_sample=10000")
+    duckdb.sql("set global pandas_analyze_sample=100000")
     if n_jobs > 1:
         duckdb.sql(f"set threads={n_jobs};")
     insert_sql = f"""
