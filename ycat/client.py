@@ -122,7 +122,8 @@ def to_duckdb(df, tb, partitions: list = None, n_jobs=3):
     with FileLock(lockfile):
         duckdb.sql(insert_sql)
     # 记录分区深度
-    put(data=depth, tb=f"{tb}/depth")
+    depth_path = os.path.join(tb, "depth")
+    put(data=depth, tb=depth_path)
 
 
 def sql(query: str, ):
@@ -131,7 +132,8 @@ def sql(query: str, ):
     convertor = dict()
     for tb in tbs:
         db_path = tb_path(tb)
-        format_tb = f"read_parquet('{db_path}/data.parquet')"
+        data_path = os.path.join(db_path, "data.parquet")
+        format_tb = f"read_parquet('{data_path}')"
         depth = get(f"{tb}/depth")
         if depth is not None:
             if depth > 0:
@@ -140,3 +142,7 @@ def sql(query: str, ):
     pattern = re.compile("|".join(re.escape(k) for k in convertor.keys()))
     new_query = pattern.sub(lambda m: convertor[m.group(0)], query)
     return duckdb.sql(new_query)
+
+def exists(tb: str)->bool:
+    """判断是否tb存在"""
+    return has(f"{tb}/depth")
